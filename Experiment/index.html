@@ -11,11 +11,11 @@
     <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
   	<script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
   	<script src="jspsych-6.1.0/plugins/planet-response.js"></script>
-    <!-- <script src="jspsych-6.1.0/plugins/jspsych-survey-image-likert.js"></script> -->
     <script src="jspsych-6.1.0/plugins/jspsych-valence-check-3.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-valence-check-6.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-inference-check-1.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-inference-check-4.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-survey-text.js"></script>
     <script src="jatos.js"></script>
   </head>
@@ -46,7 +46,7 @@
 	var continuousResp = true;
 	var nBlocks_p1 = 2;
 	var nBlocks_p2 = 3;
-  var block_duration = 20 * 1000; // in milliseconds
+  var block_duration = 240 * 1000; // in milliseconds (4 mins)
   var iti = 1000;
   var inf_stim_height = 80;
   var inf_slider_width = 500;
@@ -144,7 +144,7 @@
   ];
 
   //----------------------------------------------------------------------------
-  /* questionnaire */
+  /* inference and valence checks */
 
   // valence check
   var valence_q = 'How do you feel about each of these game elements: ' +
@@ -292,6 +292,111 @@
 
   // open-ended q
   var open_q = 'What is the best approach to trading in this game? Did your strategy change between blocks? Please provide as much detail as possible. ';
+
+  //----------------------------------------------------------------------------
+  /* individual difference questionnaires */
+
+  // DASS
+  var dass = [];
+  dass.prompt = 'Please rate how much each statement applied to you <u>over the past week</u>. There are no right or wrong answers.';
+  dass.items = [
+    'I was aware of dryness of my mouth',
+    'I couldn’t seem to experience any positive feeling at all',
+    'I experienced breathing difficulty (eg. excessively rapid breathing, breathlessness in the absence of physical exertion)',
+    'I found it difficult to work up the initiative to do things',
+    'I experienced trembling (eg. in the hands)',
+    'I was worried about situations in which I might panic and make a fool of myself',
+    'I felt that I had nothing to look forward to',
+    'I felt down-hearted and blue',
+    'I felt I was close to panic',
+    'I was unable to become enthusiastic about anything',
+    'I felt I wasn’t worth much as a person',
+    'I was aware of the action of my heart in the absence of physical exertion (eg. sense of heart rate increase, heart missing a beat)',
+    'I felt scared without any good reason',
+    'I felt that life was meaningless'
+  ];
+  dass.labels = ['0<br>(never)', '1<br>(sometimes)', '2<br>(often)', '3<br> (almost always)'];
+
+  // Brief BIS-11
+  var bis = [];
+  bis.prompt = 'Please rate how well the following statements describe <u>how you generally are</u>:'
+  bis.items = [
+    'I plan tasks carefully.',
+    'I do things without thinking.',
+    'I don’t pay attention.',
+    'I am self-controlled.',
+    'I concentrate easily.',
+    'I am a careful thinker.',
+    'I say things without thinking.',
+    'I act on the spur of the moment.'
+  ];
+  bis.labels = ['0<br>(rarely)', '1<br>(sometimes)', '2<br>(often)', '3<br> (almost always)'];
+
+  // Attribution of Responsibility
+  var aor = [];
+  aor.prompt = 'Please rate how much you agree with the following statements:'
+  aor.items = [
+    'My misfortunes have resulted mainly from the mistakes I’ve made.',
+    'In my case getting what I want has had little or nothing to do with luck.',
+    'When people have not liked me I have usually felt there was something wrong with me.',
+    'I have found that success in anything is built on hard work.',
+    'When relationships with others have gone wrong I have usually felt that I was to blame.',
+    'Success seems to me to have been largely a matter of having been in the right place at the right time.',
+    'When I have been criticized it has usually been deserved.',
+    'Most of my successes have happened without my really trying.',
+    'For most of my misfortunes and disappointments I have nobody to blame but myself.',
+    'It will be largely a matter of luck if I succeed in life.',
+    'I usually blame myself when things go wrong.',
+    'If I get what I want in life it will only be through hard work.'
+  ];
+  aor.labels = ['strongly<br>disagree', 'disagree', 'neither agree <br>nor disagree', 'agree', 'strongly<br>agree'];
+
+  // BIS/BAS
+  var bisbas = [];
+  bisbas.prompt = 'Please rate how well the following statements describe <u>how you generally are</u>:'
+  bisbas.items = [
+    'I go out of my way to get things I want.',
+    'When I’m doing well at something, I love to keep at it.',
+    'When I get something I want, I feel excited and energized.',
+    'Criticism or scolding hurts me quite a bit.',
+    'When I want something I usually go all-out to get it.',
+    'I will often do things for no other reason than that they might be fun.',
+    'If I see a chance to get something I want, I move on it right away.',
+    'I feel pretty worried or upset when I think or know somebody is angry at me.',
+    'I often act on the spur of the moment.',
+    'If I think something unpleasant is going to happen I usually get pretty worked up.',
+    'I crave excitement and new sensations.',
+    'It would excite me to win a contest.',
+    'I worry about making mistakes.'
+  ];
+  bisbas.labels = ['0<br>(not true at all for me)', '1', '2', '3<br>(very true for me)'];
+
+  // Mini IPIP
+  var ipip = [];
+  ipip.prompt = 'Please rate how well the following statements describe <u>how you generally are</u>, relative to other people you know:'
+  ipip.items = [
+    'I am the life of the party.',
+    'I sympathize with others’ feelings',
+    'I get chores done right away.',
+    'I have frequent mood swings.',
+    'I have a vivid imagination.',
+    'I don’t talk a lot.',
+    'I am not interested in other people’s problems.',
+    'I often forget to put things back in their proper place.',
+    'I am relaxed most of the time.',
+    'I am not interested in abstract ideas.',
+    'I talk to a lot of different people at parties.',
+    'I feel others’ emotions.',
+    'I like order.',
+    'I get upset easily.',
+    'I have difficulty understanding abstract ideas.',
+    'I keep in the background.',
+    'I am not really interested in others.',
+    'I make a mess of things.',
+    'I seldom feel blue.',
+    'I do not have a good imagination.'
+  ];
+  ipip.labels = ['very<br>inaccurate', 'moderately<br>inaccurate', 'neither inaccurate <br>nor accurate', 'moderately<br>accurate', 'very<br>accurate'];
 
   //----------------------------------------------------------------------------
   /* experiment blocks */
@@ -487,21 +592,6 @@
       }
     };
 
-    // var valence_p1 = {
-    //   type: 'survey-image-likert',
-    //   preamble: valence_q,
-    //   questions: [
-    //     {stimulus: 'img/win100.png', prompt:'Winning $100', name: 'winning', labels: valence_labels, required:true},
-    //     {stimulus: stim_list[0], prompt:'Planet A (left)', name: 'planetA', labels: valence_labels, required:true},
-    //     {stimulus: stim_list[1], prompt:'Planet B (right)', name: 'planetB', labels: valence_labels, required:true}
-    //   ],
-    //   randomize_question_order: false,
-    //   data: {
-    //     phase: 'val_check_1',
-    //     block_number: i+1
-    //   }
-    // };
-
     // inference check p1 (planet A)
     var infer_p1_A = {
       type: 'inference-check-1',
@@ -608,23 +698,6 @@
         block_number: i+1
       }
     };
-    // var valence_p2 = {
-    //   type: 'survey-image-likert',
-    //   preamble: valence_q,
-    //   questions: [
-    //     {stimulus: 'img/win100.png', prompt:'Winning $100', name: 'winning', labels: valence_labels, required:true},
-    //     {stimulus: stim_list[0], prompt:'Planet A (left)', name: 'planetA', labels: valence_labels, required:true},
-    //     {stimulus: stim_list[1], prompt:'Planet B (right)', name: 'planetB', labels: valence_labels, required:true},
-    //     {stimulus: 'img/ship1.png', prompt:'Ship Type 1', name: 'ship1', labels: valence_labels, required:true},
-    //     {stimulus: 'img/ship2.png', prompt:'Ship Type 2', name: 'ship2', labels: valence_labels, required:true},
-    //     {stimulus: 'img/lose.png', prompt:'Losing $', name: 'losing', labels: valence_labels, required:true},
-    //   ],
-    //   randomize_question_order: false,
-    //   data: {
-    //     phase: 'val_check_2',
-    //     block_number: i+1
-    //   }
-    // };
 
     // inference check p2 (planet A)
     var infer_p2_A = {
@@ -728,6 +801,145 @@
     timeline.push(infer_p2_ship1);
     timeline.push(infer_p2_ship2);
 	}
+
+  // ----- questionnaires -----
+
+  // DASS-21
+  var dass_block = {
+  type: 'survey-likert',
+  preamble: dass.prompt,
+  questions: [
+    {prompt: dass.items[0], name: 'item1', labels: dass.labels, required: true},
+    {prompt: dass.items[1], name: 'item2', labels: dass.labels, required: true},
+    {prompt: dass.items[2], name: 'item3', labels: dass.labels, required: true},
+    {prompt: dass.items[3], name: 'item4', labels: dass.labels, required: true},
+    {prompt: dass.items[4], name: 'item5', labels: dass.labels, required: true},
+    {prompt: dass.items[5], name: 'item6', labels: dass.labels, required: true},
+    {prompt: dass.items[6], name: 'item7', labels: dass.labels, required: true},
+    {prompt: dass.items[7], name: 'item8', labels: dass.labels, required: true},
+    {prompt: dass.items[8], name: 'item9', labels: dass.labels, required: true},
+    {prompt: dass.items[9], name: 'item10', labels: dass.labels, required: true},
+    {prompt: dass.items[10], name: 'item11', labels: dass.labels, required: true},
+    {prompt: dass.items[11], name: 'item12', labels: dass.labels, required: true},
+    {prompt: dass.items[12], name: 'item13', labels: dass.labels, required: true},
+    {prompt: dass.items[13], name: 'item14', labels: dass.labels, required: true}
+    ],
+    scale_width: inf_slider_width,
+    post_trial_gap: iti,
+    data: {
+      phase: 'ques_dass'
+    }
+  };
+  timeline.push(dass_block);
+
+  // BIS-11
+  var bis_block = {
+  type: 'survey-likert',
+  preamble: bis.prompt,
+  questions: [
+    {prompt: bis.items[0], name: 'item1', labels: bis.labels, required: true},
+    {prompt: bis.items[1], name: 'item2', labels: bis.labels, required: true},
+    {prompt: bis.items[2], name: 'item3', labels: bis.labels, required: true},
+    {prompt: bis.items[3], name: 'item4', labels: bis.labels, required: true},
+    {prompt: bis.items[4], name: 'item5', labels: bis.labels, required: true},
+    {prompt: bis.items[5], name: 'item6', labels: bis.labels, required: true},
+    {prompt: bis.items[6], name: 'item7', labels: bis.labels, required: true},
+    {prompt: bis.items[7], name: 'item8', labels: bis.labels, required: true}
+    ],
+    scale_width: inf_slider_width,
+    post_trial_gap: iti,
+    data: {
+      phase: 'ques_bis'
+    }
+  };
+  timeline.push(bis_block);
+
+  // AOR
+  var aor_block = {
+  type: 'survey-likert',
+  preamble: aor.prompt,
+  questions: [
+    {prompt: aor.items[0], name: 'item1', labels: aor.labels, required: true},
+    {prompt: aor.items[1], name: 'item2', labels: aor.labels, required: true},
+    {prompt: aor.items[2], name: 'item3', labels: aor.labels, required: true},
+    {prompt: aor.items[3], name: 'item4', labels: aor.labels, required: true},
+    {prompt: aor.items[4], name: 'item5', labels: aor.labels, required: true},
+    {prompt: aor.items[5], name: 'item6', labels: aor.labels, required: true},
+    {prompt: aor.items[6], name: 'item7', labels: aor.labels, required: true},
+    {prompt: aor.items[7], name: 'item8', labels: aor.labels, required: true},
+    {prompt: aor.items[8], name: 'item9', labels: aor.labels, required: true},
+    {prompt: aor.items[9], name: 'item10', labels: aor.labels, required: true},
+    {prompt: aor.items[10], name: 'item11', labels: aor.labels, required: true},
+    {prompt: aor.items[11], name: 'item12', labels: aor.labels, required: true}
+    ],
+    scale_width: inf_slider_width,
+    post_trial_gap: iti,
+    data: {
+      phase: 'ques_aor'
+    }
+  };
+  timeline.push(aor_block);
+
+  // BIS/BAS
+  var bisbas_block = {
+  type: 'survey-likert',
+  preamble: bisbas.prompt,
+  questions: [
+    {prompt: bisbas.items[0], name: 'item1', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[1], name: 'item2', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[2], name: 'item3', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[3], name: 'item4', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[4], name: 'item5', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[5], name: 'item6', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[6], name: 'item7', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[7], name: 'item8', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[8], name: 'item9', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[9], name: 'item10', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[10], name: 'item11', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[11], name: 'item12', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[12], name: 'item13', labels: bisbas.labels, required: true}
+    ],
+    scale_width: inf_slider_width,
+    post_trial_gap: iti,
+    data: {
+      phase: 'ques_bisbas'
+    }
+  };
+  timeline.push(bisbas_block);
+
+  // Mini IPIP
+  var ipip_block = {
+  type: 'survey-likert',
+  preamble: ipip.prompt,
+  questions: [
+    {prompt: ipip.items[0], name: 'item1', labels: ipip.labels, required: true},
+    {prompt: ipip.items[1], name: 'item2', labels: ipip.labels, required: true},
+    {prompt: ipip.items[2], name: 'item3', labels: ipip.labels, required: true},
+    {prompt: ipip.items[3], name: 'item4', labels: ipip.labels, required: true},
+    {prompt: ipip.items[4], name: 'item5', labels: ipip.labels, required: true},
+    {prompt: ipip.items[5], name: 'item6', labels: ipip.labels, required: true},
+    {prompt: ipip.items[6], name: 'item7', labels: ipip.labels, required: true},
+    {prompt: ipip.items[7], name: 'item8', labels: ipip.labels, required: true},
+    {prompt: ipip.items[8], name: 'item9', labels: ipip.labels, required: true},
+    {prompt: ipip.items[9], name: 'item10', labels: ipip.labels, required: true},
+    {prompt: ipip.items[10], name: 'item11', labels: ipip.labels, required: true},
+    {prompt: ipip.items[11], name: 'item12', labels: ipip.labels, required: true},
+    {prompt: ipip.items[12], name: 'item13', labels: ipip.labels, required: true},
+    {prompt: ipip.items[13], name: 'item14', labels: ipip.labels, required: true},
+    {prompt: ipip.items[14], name: 'item15', labels: ipip.labels, required: true},
+    {prompt: ipip.items[15], name: 'item16', labels: ipip.labels, required: true},
+    {prompt: ipip.items[16], name: 'item17', labels: ipip.labels, required: true},
+    {prompt: ipip.items[17], name: 'item18', labels: ipip.labels, required: true},
+    {prompt: ipip.items[18], name: 'item19', labels: ipip.labels, required: true},
+    {prompt: ipip.items[19], name: 'item20', labels: ipip.labels, required: true}
+    ],
+    scale_width: inf_slider_width,
+    post_trial_gap: iti,
+    data: {
+      phase: 'ques_ipip'
+    }
+  };
+  timeline.push(ipip_block);
 
   // ----- HREAP-C stuff -----
 

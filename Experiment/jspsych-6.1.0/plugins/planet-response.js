@@ -9,11 +9,8 @@
  **/
 
 jsPsych.plugins["planet-response"] = (function() {
-
 	var plugin = {};
-
 	jsPsych.pluginAPI.registerPreload('planet-response', 'stimulus', 'image');
-
 	plugin.info = {
 		name: 'planet-response',
 		description: '',
@@ -76,26 +73,10 @@ jsPsych.plugins["planet-response"] = (function() {
 			},
 			feedback_duration: {
 				type: jsPsych.plugins.parameterType.INT,
-				pretty_name: 'Planet reset wait time',
-				default: 2000,
-				description: 'Time between end of last planet message and the resetting of planet choice.'
-			},
-			reset_ship_wait: {
-				type: jsPsych.plugins.parameterType.INT,
-				pretty_name: 'Ship reset wait time',
-				default: 1000,
-				description: 'Time between end of last ship outcome and ship disappearance.'
-			},
 				pretty_name: 'Feedback duration (ms)',
 				default: 3000,
 				description: 'Duration of trade(planet) and ship feedback.'
 			},		
-			end_trial_wait: {
-				type: jsPsych.plugins.parameterType.INT,
-				pretty_name: 'End Trial Wait Time',
-				default: 1000,
-				description: 'How long before the block ends after some final action.'
-			},
 			signal_time: {
 				type: jsPsych.plugins.parameterType.INT,
 				pretty_name: 'Signal duration',
@@ -226,7 +207,6 @@ jsPsych.plugins["planet-response"] = (function() {
 				default: 50, 
 				description: 'Cost of shield activation (if shield_cost_toggle is true).'
 			},
-
 			cursor: {
 				type: jsPsych.plugins.parameterType.IMAGE,
 				pretty_name: 'Cursor images',
@@ -252,10 +232,9 @@ jsPsych.plugins["planet-response"] = (function() {
 				pretty_name: '[disabled]Ship reset wait time',
 				default: 1000,
 				description: '[disabled]Time between end of last ship outcome and ship disappearance.'
-			},		
-
-		}
+			},
 	}
+}
 
 	plugin.trial = function(display_element, trial) {
 		var html = ''
@@ -403,7 +382,6 @@ jsPsych.plugins["planet-response"] = (function() {
 			selectring.style.width = planetRect.width + 'px';
 			selectring.style.height = planetRect.height + 'px';
 			selectring.style.zIndex = '0';
-
 		}
 
 		// function to handle procedure following a valid planet-choice response
@@ -429,7 +407,7 @@ jsPsych.plugins["planet-response"] = (function() {
 			//Run gamble procedure
 			proceed_gamble(choice);
 		};
-
+	
 
 		// function to show the signal, run gamble, then show outcome
 		function proceed_gamble(choice){
@@ -579,9 +557,6 @@ jsPsych.plugins["planet-response"] = (function() {
 				//reset planets after short delay
 				setTimeout(function(){
 					reset_planet(planet,choice)
-				}, trial.reset_planet_wait)
-			}, signal_time)
-
 				}, trial.feedback_duration)//trial.reset_planet_wait
 			}, trial.signal_time)		  
 			
