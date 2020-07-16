@@ -525,16 +525,6 @@ jsPsych.plugins["planet-response"] = (function() {
 				updateScore(trial.data.points)
 				updateStatus(choice,statusmsg,statusclr)
 
-				//Proceed to next step (ship or end trial)
-				if (trial.show_ship){
-					setTimeout(function(){
-						if (!shipVisible){
-							show_ship(choice);
-						}
-					},trial.show_ship_delay);
-
-				}
-				
 				// //Proceed to next step (ship or end trial)				
 				// if (trial.show_ship){
 				// 	setTimeout(function(){
