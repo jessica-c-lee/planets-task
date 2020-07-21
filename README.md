@@ -31,7 +31,7 @@ Parameters for the planet-response plugin:
  - `ship_width` - Width of ship image in px. Integer. Default: `300`
  - `ship_attack_time` - Time between ship appearance and ship encounter (attack or passing by) in ms. Integer. Default: `400`
  - `ship_attack_damage` - Proportion of total points an undefended ship attack removes. Float. Default: `.2`
- - `ship_hostile_idx` - Specifies index of hostile ship, can be 0 (ship I) or 1 (ship II). Integer. Default: `0`
+ - `ship_hostile_idx` - Specifies index of hostile ship, can be 0 (left) or 1 (right). Integer. Default: `0`
  - `shield_charging_time` - Time it takes for shield to charge in ms. Integer. Default: `2000`
  - `probability_shield` - Probability of shield availability after charging. Float. Default: `.5`
  - `shield_prevent_trading` - Toggle prevention of trading when shield is active. Boolean. Default: `true`

@@ -46,11 +46,13 @@
 	var continuousResp = true;
 	var nBlocks_p1 = 2;
 	var nBlocks_p2 = 3;
-  var block_duration = 240 * 1000; // in milliseconds (4 mins)
+  var block_duration = 180 * 1000; // in milliseconds (3 mins)
   var iti = 1000;
   var inf_stim_height = 80;
   var inf_slider_width = 500;
   var main_stim_height = 250;
+  var rf_ship_delay = 1500; // delay between outcome and ship
+  var feedback_duration = 2500;
 
 	var nTrialspBlk = 5; //if continuousResp is true though, this doesn't matter
 	if (continuousResp){
@@ -69,13 +71,13 @@
   /* instructions text */
 
   consent_text = [
-    '<p>Before you begin, please read the information sheet carefully (you can download the pdf <a href="https://jessicaleephd.files.wordpress.com/2020/03/pis_sona-1-15.pdf" target="_blank">here</a>)</p>' +
+    '<p>Before you begin, please read the information sheet carefully (you can download the pdf <a href="https://jessicaleephd.files.wordpress.com/2020/07/pis_sona_3385.pdf" target="_blank">here</a>)</p>' +
     '<br>' +
     '<p align="center"><b>PARTICIPANT CONSENT</b></p>' +
-    '<center><img src="./img/PIS1.png"></center>' +
-    '<center><img src="./img/PIS2.png"></center>' +
-    '<center><img src="./img/consent.png"></center>' +
-    'By continuing, you are making a decision whether or not to participate.  Clicking the button below indicates that, having read the information provided on the participant information sheet, you consent to the above.' +
+    '<center><img src="./img/PIS_1.jpg"></center>' +
+    '<center><img src="./img/PIS_2.jpg"></center>' +
+    '<center><img src="./img/consent.jpg"></center>' +
+    'By continuing, you are making a decision whether or not to participate. <br>  Clicking the button below indicates that, having read the information provided on the participant information sheet, you consent to the above.' +
     '<br></p>'
   ];
 
@@ -109,38 +111,47 @@
 
   ins.pretrain2 = [
     '<p>In this experiment you will be playing a game over 5 blocks. </p>' +
-    '<p>In this game, you are an intergalactic trader in space. Your goal is to make as much intergalactic currency as possible! </p>' +
-    '<p>You will be situated between two planets that you can trade with. You can send a signal to each planet by clicking on them. Sometimes locals on these planets will receive the signal and be willing to trade. Each successful trade will give you currency. </p>'
-    // '<p><b>Note:</b> Whatever you earn in-game will be converted into real money for you at the end of the experiment. The more you earn in-game, the more you make in real life. You can earn more currency by trading with both planets. </p>'
+    '<p>In this game, you are an intergalactic trader in space. You will be situated between two planets that you can trade with. You can send a signal to each planet by clicking on them. Sometimes locals on these planets will receive the signal and be willing to trade. Each successful trade will give you points. </p>' +
+    '<p>Your goal is to have as many points as possible. </p>'
+    // '<p><b>Note:</b> Whatever you earn in-game will be converted into real money for you at the end of the experiment. The more you earn in-game, the more you make in real life. You can earn more points by trading with both planets. </p>'
   ];
 
   ins.pretrain3 = [
-    '<p>You can click on each of the planets as many times as you like. Just remember, the aim is to accumulate as much currency as possible! </p>' +
-    '<p>There are multiple blocks in this experiment. Between each block we will ask you some questions about each of the game elements. </p>'
+    '<p>You can click on each of the planets as many times as you like. Just remember, the aim is to get as many points as possible! </p>' +
+    '<p>There are multiple blocks in this experiment. Between each block we will ask you some questions about each of the game elements. </p>' +
+    '<p>There are monetary prizes for participants that have high scores and accurate answers, so do your best! </p>'
   ];
 
   // instruction check
   var Q0_text = "<b>Question 1:</b> The aim of the task is to:";
-  var Q0_answers = ["Get as much currency as possible", "Battle the aliens on the planets"];
+  var Q0_answers = ["Get as many points as possible", "Battle the aliens on the planets"];
   var Q1_text = "<b>Question 2:</b> Clicking on each planet will: ";
-  var Q1_answers = ["Make the planet disappear", "Sometimes result in a successful trade, earning me currency"];
+  var Q1_answers = ["Make the planet disappear", "Sometimes result in a successful trade, earning me points"];
   var Q2_text = "<b>Question 3:</b> There will be multiple blocks in this experiment, with questions in between each block. ";
   var Q2_answers = ["FALSE", "TRUE"];
+  var Q3_text = "<b>Question 4:</b> The top performers with the most points at the end of the task will receive: ";
+  var Q3_answers = ["An additional monetary prize", "Extra course credit"];
   var correctstring = '{"Q0":"' + Q0_answers[0] +
     '","Q1":"' + Q1_answers[1] +
     '","Q2":"' + Q2_answers[1] +
+    '","Q3":"' + Q3_answers[0] +
     '"}';
 
   ins.phase2 = [
     '<p>There have been reports of local pirates stealing from trading ships. Watch out! </p>' +
     // '<p>In the next few blocks, trading with a planet might result in the arrival of a pirate ship. </p>' +
-    '<p>Your ship is equipped with a shield that can keep these pirates from stealing from you, but the shield will not always be available. If available, you can activate the shield by pressing the ACTIVATE button. </p>' +
-    '<p>Remember, your goal is still to accumulate as much currency as possible! </p>'
+    '<p>Your ship has a shield that can keep these pirates from stealing from you, but the shield will not always be available. If available, you can activate the shield by pressing the ACTIVATE button. </p>' +
+    '<p>Remember, your goal is still to have as many points as possible! </p>'
   ];
 
   ins.debrief = [
-    '<p>Thank you for completing this study! </p>' +
-    '<p>Debrief debrief debrief... </p>'
+    '<p>Please confirm that you have read the debriefing questions below: </p>' +
+    '<p><b>(a)</b> <i>What kind of study is it?</i> Experimental. </p>' +
+    '<p><b>(b)</b>	<i>What are the independent variables? How are you operationalising them?</i>  The IVs are the outcomes of your actions (punished vs. unpunished), operationalised as pirate vs. innocuous ship encounters associated with clicking on each planet.</p>' +
+    '<p><b>(c)</b> <i>What are the dependent variables that were measured? How are you operationalising them?</i>  The dependent variables are behaviour and learning, operationalised by your rates of clicking on each planet and inferences about causal relationships in the game.</p>' +
+    '<p><b>(d)</b> <i>What is one potential confounding variable and how have you attempted to control for it?</i>  Participants might have prior experience or beliefs with such tasks. We have attempted to control for this by using a cover-story to help participants understand and engage in the task.</p>' +
+    '<p><b>(e)</b> <i>What is one potential ethical issue, and how has the experimenter attempted to resolve it?</i>  Participants may be distressed when losing points in the game. To mitigate this, we made sure that each pirate attack took only a small percentage of the total points, and made these pirate attacks avoidable and infrequent.</p>' +
+    '<p><b>(f)</b> <i>Briefly, how did the experimenter get from first year psychology to conducting this research?</i>  I did my honours and PhD in Psychology at the University of New South Wales, and then took up a postdoctoral research position at the University of New South Wales in 2016.</p>'
   ];
 
   //----------------------------------------------------------------------------
@@ -343,6 +354,7 @@
     'When relationships with others have gone wrong I have usually felt that I was to blame.',
     'Success seems to me to have been largely a matter of having been in the right place at the right time.',
     'When I have been criticized it has usually been deserved.',
+    'Select the left-most option, strongly disagree, for this question.',
     'Most of my successes have happened without my really trying.',
     'For most of my misfortunes and disappointments I have nobody to blame but myself.',
     'It will be largely a matter of luck if I succeed in life.',
@@ -364,6 +376,7 @@
     'If I see a chance to get something I want, I move on it right away.',
     'I feel pretty worried or upset when I think or know somebody is angry at me.',
     'I often act on the spur of the moment.',
+    'Select three, very true for me, for this question.',
     'If I think something unpleasant is going to happen I usually get pretty worked up.',
     'I crave excitement and new sensations.',
     'It would excite me to win a contest.',
@@ -465,7 +478,8 @@
     questions: [
       {prompt: Q0_text, options: Q0_answers, required: true},
       {prompt: Q1_text, options: Q1_answers, required: true},
-      {prompt: Q2_text, options: Q2_answers, required: true}
+      {prompt: Q2_text, options: Q2_answers, required: true},
+      {prompt: Q3_text, options: Q3_answers, required: true}
         ],
     on_finish: function(data) {
       if( data.responses == correctstring) {
@@ -528,6 +542,7 @@
     reset_planet_wait: 1000,
     shield_charging_time: 3000,
     ship_attack_time: 6000,
+    feedback_duration: feedback_duration,
 		data: {
       phase: 'phase1',
       block_type: 'planet_noship',
@@ -588,7 +603,7 @@
       require_movement: false,
       data: {
         phase: 'val_check_1',
-        block_number: i+1
+        block_number: i
       }
     };
 
@@ -609,7 +624,7 @@
       require_movement: false,
       data: {
         phase: 'inf_check_1_A',
-        block_number: i+1
+        block_number: i
       }
     };
 
@@ -630,7 +645,7 @@
       require_movement: false,
       data: {
         phase: 'inf_check_1_B',
-        block_number: i+1
+        block_number: i
       }
     };
 
@@ -661,15 +676,14 @@
 	planet_ship.show_ship = true;
 	planet_ship.data = Object.assign({},planet_noship.data)
 	planet_ship.data.block_type = 'planet_ship';
+  planet_ship.show_ship_delay = rf_ship_delay;
+  planet_ship.data.phase = 'Phase2';
 
 	// push specified number of blocks into timeline
 	for (var i=0; i<nBlocks_p2; i++){
 		var block_ship = {
 			timeline: [planet_ship],
-			repetitions: nTrialspBlk,
-      data: {
-        phase: 'phase2'
-      }
+			repetitions: nTrialspBlk
 		}
 		timeline.push(block_ship);
 
@@ -695,7 +709,7 @@
       require_movement: false,
       data: {
         phase: 'val_check_2',
-        block_number: i+1
+        block_number: i + nBlocks_p1
       }
     };
 
@@ -722,7 +736,7 @@
       require_movement: false,
       data: {
         phase: 'inf_check_2_A',
-        block_number: i+1
+        block_number: i + nBlocks_p1
       }
     };
 
@@ -749,7 +763,7 @@
       require_movement: false,
       data: {
         phase: 'inf_check_2_B',
-        block_number: i+1
+        block_number: i + nBlocks_p1
       }
     };
 
@@ -770,7 +784,7 @@
       require_movement: false,
       data: {
         phase: 'inf_check_2_ship1',
-        block_number: i+1
+        block_number: i + nBlocks_p1
       }
     };
 
@@ -791,7 +805,7 @@
       require_movement: false,
       data: {
         phase: 'inf_check_2_ship2',
-        block_number: i+1
+        block_number: i + nBlocks_p1
       }
     };
 
@@ -866,11 +880,12 @@
     {prompt: aor.items[4], name: 'item5', labels: aor.labels, required: true},
     {prompt: aor.items[5], name: 'item6', labels: aor.labels, required: true},
     {prompt: aor.items[6], name: 'item7', labels: aor.labels, required: true},
-    {prompt: aor.items[7], name: 'item8', labels: aor.labels, required: true},
-    {prompt: aor.items[8], name: 'item9', labels: aor.labels, required: true},
-    {prompt: aor.items[9], name: 'item10', labels: aor.labels, required: true},
-    {prompt: aor.items[10], name: 'item11', labels: aor.labels, required: true},
-    {prompt: aor.items[11], name: 'item12', labels: aor.labels, required: true}
+    {prompt: aor.items[7], name: 'catch', labels: aor.labels, required: true},
+    {prompt: aor.items[8], name: 'item8', labels: aor.labels, required: true},
+    {prompt: aor.items[9], name: 'item9', labels: aor.labels, required: true},
+    {prompt: aor.items[10], name: 'item10', labels: aor.labels, required: true},
+    {prompt: aor.items[11], name: 'item11', labels: aor.labels, required: true},
+    {prompt: aor.items[12], name: 'item12', labels: aor.labels, required: true}
     ],
     scale_width: inf_slider_width,
     post_trial_gap: iti,
@@ -894,10 +909,11 @@
     {prompt: bisbas.items[6], name: 'item7', labels: bisbas.labels, required: true},
     {prompt: bisbas.items[7], name: 'item8', labels: bisbas.labels, required: true},
     {prompt: bisbas.items[8], name: 'item9', labels: bisbas.labels, required: true},
-    {prompt: bisbas.items[9], name: 'item10', labels: bisbas.labels, required: true},
-    {prompt: bisbas.items[10], name: 'item11', labels: bisbas.labels, required: true},
-    {prompt: bisbas.items[11], name: 'item12', labels: bisbas.labels, required: true},
-    {prompt: bisbas.items[12], name: 'item13', labels: bisbas.labels, required: true}
+    {prompt: bisbas.items[9], name: 'catch', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[10], name: 'item10', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[11], name: 'item11', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[12], name: 'item12', labels: bisbas.labels, required: true},
+    {prompt: bisbas.items[13], name: 'item13', labels: bisbas.labels, required: true}
     ],
     scale_width: inf_slider_width,
     post_trial_gap: iti,
