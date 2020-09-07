@@ -836,7 +836,23 @@ jsPsych.plugins["planet-response"] = (function() {
 					"block_number": trial.data.block_number,
 					"trial_number": trial.data.trial_number,
 					"viewport_size": [vpWidth,vpHeight],
-					"display_loc": [dpx,dpy]
+					"display_loc": [dpx,dpy],
+					"block_duration": trial.block_duration,
+					"feedback_duration": trial.feedback_duration,
+					"signal_time": trial.signal_time,
+					"probability_win": trial.probability_win,
+					"rewards": trial.rewards,
+					"show_ship": trial.show_ship,
+					"show_ship_delay": trial.show_ship_delay,
+					"probability_ship": trial.probability_ship,
+					"show_ship_delay": trial.show_ship_delay,
+					"ship_attack_time": trial.ship_attack_time,
+					"ship_attack_damage": trial.ship_attack_damage,
+					"shield_charging_time": trial.shield_charging_time,
+					"probability_shield": trial.probability_shield,
+					"shield_prevent_trading": trial.shield_prevent_trading,
+					"shield_cost_toggle": trial.shield_cost_toggle,
+					"shield_cost_amount": trial.shield_cost_amount
 				};
 
 				// clear the display
